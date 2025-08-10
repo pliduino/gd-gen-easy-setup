@@ -1,0 +1,116 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct3mljtv5nadb"]
+
+[ext_resource type="Script" uid="uid://ma0ohb0rixf3" path="res://main_screen.gd" id="1_tjn2e"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tjn2e"]
+size = Vector2(16, 16)
+
+[node name="Control" type="PanelContainer" node_paths=PackedStringArray("file_dialog", "folder_text", "project_name_edit", "lib_name_edit", "open_dialog_button", "create_project_button", "godot_version_select")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tjn2e")
+file_dialog = NodePath("FileDialog")
+folder_text = NodePath("MarginContainer/VBoxContainer/HBoxContainer/FolderText")
+project_name_edit = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/ProjectNameEdit")
+lib_name_edit = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/LibraryNameEdit")
+open_dialog_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/OpenFileDialog")
+create_project_button = NodePath("MarginContainer/VBoxContainer/CreateProjectButton")
+godot_version_select = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/GodotVersionSelect")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Project Name:"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProjectNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MyProject"
+placeholder_text = "Project Name"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Project Path:"
+
+[node name="CreateFolderCheck" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create Folder"
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FolderText" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Select Root Folder"
+editable = false
+
+[node name="OpenFileDialog" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Browse"
+icon = SubResource("PlaceholderTexture2D_tjn2e")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Godot Version:"
+
+[node name="GodotVersionSelect" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+selected = 2
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "4.3"
+popup/item_0/id = 0
+popup/item_1/text = "4.4"
+popup/item_1/id = 1
+popup/item_2/text = "4.5"
+popup/item_2/id = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Module Name:"
+
+[node name="LibraryNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "core"
+placeholder_text = "core"
+
+[node name="CreateProjectButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Create Project"
