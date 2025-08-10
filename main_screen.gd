@@ -367,8 +367,10 @@ android.debug.x86_64 = \"res://GDExtension/{module_name}/{project_name}_{module_
 android.release.x86_64 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.android.template_release.x86_64.so\"
 android.debug.arm64 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.android.template_debug.arm64.so\"
 android.release.arm64 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.android.template_release.arm64.so\"
-web.debug.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_debug.wasm32.wasm\"
-web.release.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_release.wasm32.wasm\"
+web.debug.threads.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_debug.wasm32.wasm\"
+web.release.threads.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_release.wasm32.wasm\"
+web.debug.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_debug.wasm32.nothreads.wasm\"
+web.release.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_release.wasm32.nothreads.wasm\"
 ".format({"module_name": lib_name_edit.text, "godot_version": godot_version_select.text, "project_name": project_name}))
 	
 	file.close()
