@@ -226,7 +226,7 @@ func _generate_base_sconstruct_file(base_folder: String, modules: Array[String])
 
 func _clone_gd_gen(base_folder: String):
 	var output = []
-	var exit_code = OS.execute("git", ["clone", gd_gen_repository_url, base_folder + "/gd-gen"], output, true)
+	var exit_code = OS.execute("git", ["clone", "--filter=tree:0", gd_gen_repository_url, base_folder + "/gd-gen"], output, true)
 	if exit_code != 0:
 		var exit_message = ""
 		for o in output:
@@ -236,7 +236,7 @@ func _clone_gd_gen(base_folder: String):
 		
 func _clone_godot_cpp(base_folder: String, version: String):
 	var output = []
-	var exit_code = OS.execute("git", ["clone", "-b", version if version != "4.5" else "master", godot_cpp_repository_url, base_folder + "/godot-cpp"], output, true)
+	var exit_code = OS.execute("git", ["clone", "-b", ("godot-"+version+"-stable") if version != "4.5" else "master", "--filter=tree:0", godot_cpp_repository_url, base_folder + "/godot-cpp"], output, true)
 	if exit_code != 0:
 		var exit_message = ""
 		for o in output:
