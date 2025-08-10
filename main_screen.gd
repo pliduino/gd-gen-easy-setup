@@ -16,6 +16,9 @@ const godot_cpp_repository_url: String = "https://github.com/godotengine/godot-c
 
 var base_path: String
 var project_name: String
+var project_name_no_format: String
+var module_name: String
+var module_name_no_format: String
 var create_folder: bool = true
 
 func _ready() -> void:
@@ -23,13 +26,14 @@ func _ready() -> void:
 	file_dialog.dir_selected.connect(_on_dir_select)
 	create_project_button.pressed.connect(_create_project)
 	project_name_edit.text_changed.connect(_on_project_name_update)
+	lib_name_edit.text_changed.connect(_on_module_name_update)
 	create_folder_check.toggled.connect(_on_create_folder_toggle)
 	
 	base_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	folder_text.text = base_path
 	
-	project_name = project_name_edit.text
-	_update_path_text()
+	_on_project_name_update(project_name_edit.text)
+	_on_module_name_update(lib_name_edit.text)
 
 func _on_create_folder_toggle(toggle: bool):
 	create_folder = toggle
@@ -43,8 +47,13 @@ func _on_dir_select(path: String):
 	_update_path_text()
 	
 func _on_project_name_update(new_project_name: String):
-	project_name = new_project_name
+	project_name_no_format = new_project_name
+	project_name = new_project_name.to_lower().replace(' ', '_')
 	_update_path_text()
+
+func _on_module_name_update(new_module_name: String):
+	module_name_no_format = new_module_name
+	module_name = new_module_name.to_lower().replace(' ', '_')
 	
 func _update_path_text():
 	folder_text.text = base_path
@@ -89,7 +98,7 @@ func _create_project():
 		return
 	
 	
-	var module_folder = "%s/%s" % [project_folder, lib_name_edit.text];
+	var module_folder = "%s/%s" % [project_folder, module_name];
 	DirAccess.make_dir_absolute(module_folder)
 	DirAccess.make_dir_absolute("%s/src" % module_folder)
 	var register_types_h_file = FileAccess.open("%s/src/register_types.h" % module_folder, 
@@ -102,7 +111,7 @@ func _create_project():
 using namespace godot;
 
 void initialize_{module_name}_module(ModuleInitializationLevel p_level);
-void uninitialize_{module_name}_module(ModuleInitializationLevel p_level);".format({"module_name": lib_name_edit.text}))
+void uninitialize_{module_name}_module(ModuleInitializationLevel p_level);".format({"module_name": module_name}))
 	
 	register_types_h_file.close()
 	
@@ -150,17 +159,17 @@ extern \"C\"
 
 		return init_obj.init();
 	}
-}".format({"module_name": lib_name_edit.text}))
+}".format({"module_name": module_name}))
 	
 	register_types_cpp_file.close()
 	
-	_generate_module_sconstruct_file(module_folder, lib_name_edit.text)
+	_generate_module_sconstruct_file(module_folder, module_name)
 	
 	DirAccess.make_dir_absolute(project_folder + "/godot")
 	_generate_godot_project_file(project_folder + "/godot")
 	
 	DirAccess.make_dir_absolute(project_folder + "/godot/GDExtension")
-	_generate_gdextension_file(project_folder + "/godot", lib_name_edit.text)
+	_generate_gdextension_file(project_folder + "/godot", module_name)
 	
 	if _clone_gd_gen(project_folder):
 		OS.move_to_trash(project_folder)
@@ -172,7 +181,7 @@ extern \"C\"
 	
 	_generate_git_ignore(project_folder)
 	
-	_generate_base_sconstruct_file(project_folder, [lib_name_edit.text])
+	_generate_base_sconstruct_file(project_folder, [module_name])
 	
 	if _init_git(project_folder):
 		OS.move_to_trash(project_folder)
@@ -252,7 +261,7 @@ config_version=5
 [application]
 
 config/name=\"{project_name}\"
-".format({"project_name": project_name}))
+".format({"project_name": project_name_no_format}))
 	
 	file.close()
 
@@ -371,6 +380,6 @@ web.debug.threads.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{mod
 web.release.threads.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_release.wasm32.wasm\"
 web.debug.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_debug.wasm32.nothreads.wasm\"
 web.release.wasm32 = \"res://GDExtension/{module_name}/{project_name}_{module_name}.web.template_release.wasm32.nothreads.wasm\"
-".format({"module_name": lib_name_edit.text, "godot_version": godot_version_select.text, "project_name": project_name}))
+".format({"module_name": module_name, "godot_version": godot_version_select.text, "project_name": project_name}))
 	
 	file.close()
