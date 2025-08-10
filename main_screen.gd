@@ -66,6 +66,14 @@ func is_folder_empty(path: String) -> bool:
 	return file_name == ""
 
 func _create_project():
+	if project_name.is_empty():
+		pop_error_dialog("Project name is empty", "Please enter a project name")
+		return
+		
+	if lib_name_edit.text.is_empty():
+		pop_error_dialog("Module name is empty", "Please enter a module name")
+		return
+	
 	var project_folder = base_path;
 	if create_folder:
 		project_folder += "/" + project_name 

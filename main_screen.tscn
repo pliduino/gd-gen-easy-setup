@@ -56,8 +56,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7a4el")
-text = "MyProject"
 placeholder_text = "Project Name"
+caret_blink = true
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -95,6 +99,10 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_7a4el")
 text = "Browse"
 icon = ExtResource("2_w0p2i")
 
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -115,6 +123,10 @@ popup/item_1/id = 1
 popup/item_2/text = "4.5"
 popup/item_2/id = 2
 
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -128,6 +140,11 @@ size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7a4el")
 text = "core"
 placeholder_text = "core"
+caret_blink = true
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 
 [node name="CreateProjectButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
