@@ -236,7 +236,7 @@ func _clone_gd_gen(base_folder: String):
 		
 func _clone_godot_cpp(base_folder: String, version: String):
 	var output = []
-	var exit_code = OS.execute("git", ["clone", "-b", ("godot-"+version+"-stable") if version != "4.6" else "master", "--filter=tree:0", godot_cpp_repository_url, base_folder + "/godot-cpp"], output, true)
+	var exit_code = OS.execute("git", ["clone", "-b", ("godot-"+version+"-stable") if version != "Latest" else "master", "--filter=tree:0", godot_cpp_repository_url, base_folder + "/godot-cpp"], output, true)
 	if exit_code != 0:
 		var exit_message = ""
 		for o in output:
